@@ -1,0 +1,8 @@
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function DummyMethodName()
+    {
+        return $this->hasMany(DummyParams);
+    }
+

@@ -1,0 +1,16 @@
+<?php
+
+namespace DummyNamespace;
+
+use Illuminate\Database\Eloquent\Model;
+//DummySDTraitInclude
+
+class DummyClass extends Model
+{
+    //DummySDTrait
+
+//DummyHasManyRelations
+//DummyHasOneRelations
+//DummyBelongsToRelations
+//DummyBelongsToManyRelations
+}

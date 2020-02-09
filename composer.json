@@ -1,0 +1,26 @@
+{
+    "name": "danielyandev/laravel-easymake",
+    "description": "Easy make commands for Laravel",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Ruben Danielyan",
+            "email": "rub1994.13@gmail.com"
+        }
+    ],
+    "require": {
+        "php": "^7.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "EasyMake\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "EasyMake\\EasyMakeServiceProvider"
+            ]
+        }
+    }
+}

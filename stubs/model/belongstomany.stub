@@ -1,0 +1,8 @@
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function DummyMethodName()
+    {
+        return $this->belongsToMany(DummyParams);
+    }
+

@@ -1,0 +1,8 @@
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function DummyMethodName()
+    {
+        return $this->hasOne(DummyParams);
+    }
+
