@@ -1,28 +1,34 @@
 ## Make Laravel 5.\*, 6.\* classes Easier
 
-#### Note: you can use this version ony if you follow Laravel architecture codex, if you use other folders for models, controllers and etc. you have to wait the next versions 
+#### Note: you can use this version ony if you follow Laravel architecture standards, if you use other folders for models, controllers and etc. you have to wait the next versions 
 
 ## Get started
 
 #### Install package
-<code>composer require danielyandev/laravel-easymake</code>
+`composer require danielyandev/laravel-easymake`
 
 ## Usage
 
 #### Make model with soft deletes
-<code>php artisan easymake:model MyModel --softdeletes</code>
+`php artisan easymake:model MyModel --softdeletes`
 
 ##### or
-<code>php artisan easymake:model MyModel -d</code>
+`php artisan easymake:model MyModel -d`
 
 #### Make model with hasOne relations
-<code>php artisan easymake:model MyModel --hasOne="Model1|Model2|...|ModelN"</code>
+`php artisan easymake:model MyModel --hasOne="Model1|Model2|...|ModelN"`
 
 ##### you can also specify other parameters
-<code>php artisan easymake:model MyModel --hasOne="Model1,foreignKey,localKey"</code>
+`php artisan easymake:model MyModel --hasOne="Model1,foreignKey,localKey"`
 
-<code>php artisan easymake:model MyModel --hasOne="Model1,foreignKey1,localKey1|...|ModelN,foreignKeyN,localKeyN"</code>
+`php artisan easymake:model MyModel --hasOne="Model1,foreignKey1,localKey1|...|ModelN,foreignKeyN,localKeyN"`
 
 ## All available commands
 
-soon..
+#### Model
+###### Parameters are optional and you most likely won't use them if you follow laravel standards
+##### Note: you can specify as many  relation models as you want, separated with `|` character
+- `php artisan easymake:model MyModel --hasOne="OtherModel,foreignKey,localKey"`
+- `php artisan easymake:model MyModel --hasMany="OtherModel,foreignKey,localKey"`
+- `php artisan easymake:model MyModel --belongsTo="OtherModel,foreignKey,ownerKey,relation"`
+- `php artisan easymake:model MyModel --belongsToMany="OtherModel,table,foreignPivotKey,relatedPivotKey,ParentKey,RelatedKey,relation"`
