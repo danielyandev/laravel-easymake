@@ -25,7 +25,7 @@
 
 ## All available commands
 
-#### Model
+### Model
 ###### Parameters are optional and you most likely won't use them if you follow laravel standards
 ##### Note: you can specify as many  relation models as you want, separated with `|` character
 - `php artisan easymake:model MyModel --hasOne="OtherModel,foreignKey,localKey"`
