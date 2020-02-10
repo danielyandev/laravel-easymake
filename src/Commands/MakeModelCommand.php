@@ -24,6 +24,55 @@ class MakeModelCommand extends ModelMakeCommand
     protected $description = 'Create a new Eloquent model class';
 
     /**
+     * Columns to pass to migration command.
+     *
+     * @var string
+     */
+    protected $migrationColumns = '';
+
+    /**
+     * Execute the console command.
+     *
+     * @return void
+     */
+    public function handle()
+    {
+        $migration = $this->option('migration');
+        // disable migration creating for parent handle method
+        if ($migration) {
+            $this->input->setOption('migration', false);
+        }
+
+        if (parent::handle() === false && ! $this->option('force')) {
+            return;
+        }
+
+        if ($this->option('all')) {
+            $this->input->setOption('factory', true);
+            $this->input->setOption('seed', true);
+            $this->input->setOption('migration', true);
+            $this->input->setOption('controller', true);
+            $this->input->setOption('resource', true);
+        }
+
+        if ($this->option('factory')) {
+            $this->createFactory();
+        }
+
+        if ($migration) {
+            $this->createOwnMigration();
+        }
+
+        if ($this->option('seed')) {
+            $this->createSeeder();
+        }
+
+        if ($this->option('controller') || $this->option('resource') || $this->option('api')) {
+            $this->createController();
+        }
+    }
+
+    /**
      * Get the stub file for the generator.
      *
      * @return string
@@ -209,6 +258,9 @@ class MakeModelCommand extends ModelMakeCommand
             $method = str_replace('DummyMethodName', $methodName, $method);
             $method = str_replace('DummyParams', $params, $method);
             $relations .= $method;
+
+            $this->migrationColumns .= $this->migrationColumns ? '|': '';
+            $this->migrationColumns .= 'integer='. $methodName .'_id';
         }
 
         return $relations;
@@ -248,7 +300,7 @@ class MakeModelCommand extends ModelMakeCommand
      *
      * @return void
      */
-    protected function createMigration()
+    protected function createOwnMigration()
     {
         $table = Str::snake(Str::pluralStudly(class_basename($this->argument('name'))));
 
@@ -256,9 +308,15 @@ class MakeModelCommand extends ModelMakeCommand
             $table = Str::singular($table);
         }
 
-        $this->call('easymake:migration', [
+        $params = [
             'name' => "create_{$table}_table",
-            '--create' => $table,
-        ]);
+            '--create' => $table
+        ];
+
+        if ($this->migrationColumns){
+            $params['--columns'] = $this->migrationColumns;
+        }
+
+        $this->call('easymake:migration', $params);
     }
 }
