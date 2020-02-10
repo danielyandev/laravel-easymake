@@ -2,6 +2,7 @@
 
 namespace EasyMake;
 
+use EasyMake\Commands\MakeMigrationCommand;
 use EasyMake\Commands\MakeModelCommand;
 use Illuminate\Support\ServiceProvider;
 
@@ -17,8 +18,11 @@ class EasyMakeServiceProvider extends ServiceProvider
      */
     private function registerCommands()
     {
-        $this->commands([
-            MakeModelCommand::class
-        ]);
+        if ($this->app->runningInConsole()){
+            $this->commands([
+                MakeModelCommand::class,
+                MakeMigrationCommand::class,
+            ]);
+        }
     }
 }
