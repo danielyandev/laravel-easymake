@@ -19,7 +19,7 @@
 `php artisan easymake:model MyModel --hasOne="Model1|Model2|...|ModelN"`
 
 ##### you can also specify other parameters
-`php artisan easymake:model MyModel --hasOne="Model1,foreignKey,localKey"`
+`php artisan easymake:model MyModel --hasOne="Model1,foreignKey1,localKey1"`
 
 `php artisan easymake:model MyModel --hasOne="Model1,foreignKey1,localKey1|...|ModelN,foreignKeyN,localKeyN"`
 
@@ -31,4 +31,4 @@
 - `php artisan easymake:model MyModel --hasOne="OtherModel,foreignKey,localKey"`
 - `php artisan easymake:model MyModel --hasMany="OtherModel,foreignKey,localKey"`
 - `php artisan easymake:model MyModel --belongsTo="OtherModel,foreignKey,ownerKey,relation"`
-- `php artisan easymake:model MyModel --belongsToMany="OtherModel,table,foreignPivotKey,relatedPivotKey,ParentKey,RelatedKey,relation"`
+- `php artisan easymake:model MyModel --belongsToMany="OtherModel,table,foreignPivotKey,relatedPivotKey,parentKey,relatedKey,relation"`
