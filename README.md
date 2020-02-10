@@ -1,7 +1,5 @@
 ## Make Laravel 5.\*, 6.\* classes Easier
 
-#### Note: you can use this version ony if you follow Laravel architecture standards, if you use other folders for models, controllers and etc. you have to wait the next versions 
-
 ## Get started
 
 #### Install package
@@ -18,10 +16,13 @@
 #### Make model with hasOne relations
 `php artisan easymake:model MyModel --hasOne="Model1|Model2|...|ModelN"`
 
-##### you can also specify other parameters
+##### With other parameters
 `php artisan easymake:model MyModel --hasOne="Model1,foreignKey1,localKey1"`
 
 `php artisan easymake:model MyModel --hasOne="Model1,foreignKey1,localKey1|...|ModelN,foreignKeyN,localKeyN"`
+
+##### With namespace
+`php artisan easymake:model MyModel --hasOne="App\User|App\Models\SomeModel"`
 
 ## All available commands
 

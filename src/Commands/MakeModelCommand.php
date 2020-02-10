@@ -33,6 +33,12 @@ class MakeModelCommand extends ModelMakeCommand
         return __DIR__ . '/../../stubs/model/model.stub';
     }
 
+    /**
+     * Get method stub
+     *
+     * @param $name
+     * @return string
+     */
     protected function getSubStub($name)
     {
         return __DIR__ . '/../../stubs/model/' . $name .'.stub';
@@ -211,10 +217,23 @@ class MakeModelCommand extends ModelMakeCommand
     protected function parseRelation($relation, $plural)
     {
         $relation = explode(',', $relation);
-        $className = $relation[0];
+        $className = str_replace($this->getNamespace($relation[0]).'\\', '', $relation[0]);
         $methodName = Str::lower($plural ? Str::plural($className) : $className);
-        $params = $className . "::class";
 
+        // get namespace of model is being created
+        $namespace = explode('\\', str_replace('/', '\\', $this->argument('name')));
+        unset($namespace[count($namespace) - 1]);
+        $namespace = $this->rootNamespace() . implode('\\', $namespace);
+
+        $params = '\\' . $this->getNamespace($relation[0]).'\\' . $className . "::class";
+        // if created model and its related model are in the same namespace
+        // we don't need the full namespace
+
+        if (!$this->getNamespace($relation[0]) || $namespace == $this->getNamespace($relation[0])){
+            $params = $className . "::class";
+        }
+
+        // add params field
         foreach ($relation as $key => $value) {
             if (!$key) continue;
 
@@ -222,5 +241,24 @@ class MakeModelCommand extends ModelMakeCommand
         }
 
         return [$methodName,  $params];
+    }
+
+    /**
+     * Create a migration file for the model.
+     *
+     * @return void
+     */
+    protected function createMigration()
+    {
+        $table = Str::snake(Str::pluralStudly(class_basename($this->argument('name'))));
+
+        if ($this->option('pivot')) {
+            $table = Str::singular($table);
+        }
+
+        $this->call('easymake:migration', [
+            'name' => "create_{$table}_table",
+            '--create' => $table,
+        ]);
     }
 }
