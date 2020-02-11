@@ -32,3 +32,4 @@
 
 - [Model](https://github.com/danielyandev/laravel-easymake/blob/master/docs/usage/model.md)
 - [Migration](https://github.com/danielyandev/laravel-easymake/blob/master/docs/usage/migration.md)
+- [Controller](https://github.com/danielyandev/laravel-easymake/blob/master/docs/usage/controller.md)
