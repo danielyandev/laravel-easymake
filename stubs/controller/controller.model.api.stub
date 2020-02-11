@@ -1,0 +1,121 @@
+<?php
+
+namespace DummyNamespace;
+
+use DummyFullModelClass;
+use DummyRootNamespaceHttp\Controllers\Controller;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+
+class DummyClass extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        $DummyModelVariable = DummyModelClass::take(10)->get();
+        return response()->json([
+            'success' => true,
+            'DummyModelVariable' => $DummyModelVariable
+        ]);
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        $rules = [
+
+        ];
+
+        $validator = Validator::make($request->all(), $rules);
+        if($validator->fails()){
+            return response()->json([
+                'success' => false,
+                'errors' => $validator->errors()
+            ], 400);
+        }
+
+        $DummyModelVariable = new DummyModelClass();
+        $DummyModelVariable->fill($request->except('_token'));
+        $DummyModelVariable->save();
+
+        return response()->json([
+           'success' => true,
+           'DummyModelVariable' => $DummyModelVariable
+        ]);
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  \DummyFullModelClass  $DummyModelVariable
+     * @return \Illuminate\Http\Response
+     */
+    public function show(DummyModelClass $DummyModelVariable)
+    {
+        return response()->json([
+           'success' => true,
+           'DummyModelVariable' => $DummyModelVariable
+        ]);
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \DummyFullModelClass  $DummyModelVariable
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, DummyModelClass $DummyModelVariable)
+    {
+        $rules = [
+
+        ];
+
+        $validator = Validator::make($request->all(), $rules);
+        if($validator->fails()){
+            return response()->json([
+                'success' => false,
+                'errors' => $validator->errors()
+            ], 400);
+        }
+
+        $DummyModelVariable->fill($request->except('_token', '_method'));
+        $DummyModelVariable->save();
+
+        return response()->json([
+           'success' => true,
+           'DummyModelVariable' => $DummyModelVariable
+        ]);
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  \DummyFullModelClass  $DummyModelVariable
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy(DummyModelClass $DummyModelVariable)
+    {
+        try {
+            $DummyModelVariable->delete();
+        }catch(\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'errors' => ['error' => $e->getMessage()]
+            ], 400);
+        }
+
+        return response()->json([
+           'success' => true
+        ]);
+    }
+}

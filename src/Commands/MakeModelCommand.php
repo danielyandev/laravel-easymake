@@ -31,6 +31,20 @@ class MakeModelCommand extends ModelMakeCommand
     protected $migrationColumns = '';
 
     /**
+     * Resource controller option
+     *
+     * @var boolean
+     */
+    protected $controllerResource;
+
+    /**
+     * Api controller option
+     *
+     * @var boolean
+     */
+    protected $controllerApi;
+
+    /**
      * Execute the console command.
      *
      * @return void
@@ -41,6 +55,17 @@ class MakeModelCommand extends ModelMakeCommand
         // disable migration creating for parent handle method
         if ($migration) {
             $this->input->setOption('migration', false);
+        }
+        $controller = $this->option('controller');
+        $controllerResource = $this->option('resource');
+        $controllerApi = $this->option('api');
+        // disable controller creating for parent handle method
+        if ($controller || $controllerResource || $controllerApi) {
+            $this->input->setOption('controller', false);
+            $this->input->setOption('resource', false);
+            $this->input->setOption('api', false);
+            $this->controllerApi = $controllerApi;
+            $this->controllerResource = $controllerResource;
         }
 
         if (parent::handle() === false && ! $this->option('force')) {
@@ -67,8 +92,8 @@ class MakeModelCommand extends ModelMakeCommand
             $this->createSeeder();
         }
 
-        if ($this->option('controller') || $this->option('resource') || $this->option('api')) {
-            $this->createController();
+        if ($controller || $controllerResource || $controllerApi) {
+            $this->createOwnController();
         }
     }
 
@@ -333,5 +358,23 @@ class MakeModelCommand extends ModelMakeCommand
         }
 
         $this->call('easymake:migration', $params);
+    }
+
+    /**
+     * Create a controller for the model.
+     *
+     * @return void
+     */
+    protected function createOwnController()
+    {
+        $controller = Str::studly(class_basename($this->argument('name')));
+
+        $modelName = $this->qualifyClass($this->getNameInput());
+
+        $this->call('easymake:controller', array_filter([
+            'name'  => "{$controller}Controller",
+            '--model' => $this->controllerResource || $this->controllerApi ? $modelName : null,
+            '--api' => $this->controllerApi,
+        ]));
     }
 }

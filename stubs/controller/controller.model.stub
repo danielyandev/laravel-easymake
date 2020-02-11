@@ -1,0 +1,111 @@
+<?php
+
+namespace DummyNamespace;
+
+use DummyFullModelClass;
+use DummyRootNamespaceHttp\Controllers\Controller;
+use Illuminate\Http\Request;
+
+class DummyClass extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\Response
+     */
+    public function index(Request $request)
+    {
+        $DummyModelVariable = DummyModelClass::paginate(10);
+        return view('dummy')->with(compact('DummyModelVariable'));
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        return view('dummy');
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     * @throws \Illuminate\Validation\ValidationException
+     */
+    public function store(Request $request)
+    {
+        $rules = [
+
+        ];
+
+        $this->validate($request, $rules);
+
+        $DummyModelVariable = new DummyModelClass();
+        $DummyModelVariable->fill($request->except('_token'));
+        $DummyModelVariable->save();
+
+        return back()->with('success', 'New DummyModelClass created successfully');
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  \DummyFullModelClass  $DummyModelVariable
+     * @return \Illuminate\Http\Response
+     */
+    public function show(DummyModelClass $DummyModelVariable)
+    {
+        return view('dummy')->with(compact('DummyModelVariable'));
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  \DummyFullModelClass  $DummyModelVariable
+     * @return \Illuminate\Http\Response
+     */
+    public function edit(DummyModelClass $DummyModelVariable)
+    {
+        return view('dummy')->with(compact('DummyModelVariable'));
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \DummyFullModelClass  $DummyModelVariable
+     * @return \Illuminate\Http\Response
+     * @throws \Illuminate\Validation\ValidationException
+     */
+    public function update(Request $request, DummyModelClass $DummyModelVariable)
+    {
+        $rules = [
+
+        ];
+
+        $this->validate($request, $rules);
+
+        $DummyModelVariable->fill($request->except('_token', '_method'));
+        $DummyModelVariable->save();
+
+        return back()->with('success', 'DummyModelClass updated successfully');
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  \DummyFullModelClass  $DummyModelVariable
+     * @return \Illuminate\Http\Response
+     * @throws \Exception
+     */
+    public function destroy(DummyModelClass $DummyModelVariable)
+    {
+        $DummyModelVariable->delete();
+        return back()->with('success', 'DummyModelClass deleted successfully');
+    }
+}

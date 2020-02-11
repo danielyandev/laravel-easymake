@@ -2,6 +2,7 @@
 
 namespace EasyMake;
 
+use EasyMake\Commands\MakeControllerCommand;
 use EasyMake\Commands\MakeMigrationCommand;
 use EasyMake\Commands\MakeModelCommand;
 use Illuminate\Support\ServiceProvider;
@@ -22,6 +23,7 @@ class EasyMakeServiceProvider extends ServiceProvider
             $this->commands([
                 MakeModelCommand::class,
                 MakeMigrationCommand::class,
+                MakeControllerCommand::class,
             ]);
         }
     }
