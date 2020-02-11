@@ -1,11 +1,11 @@
-## Make Laravel 5.\*, 6.\* classes Easier
+## Making Laravel artisan make: command easier
 
-## Get started
+## Getting started
 
 #### Install package
 `composer require danielyandev/laravel-easymake`
 
-## Usage
+## Some examples
 
 #### Make model with soft deletes
 `php artisan easymake:model MyModel --softdeletes`
@@ -17,8 +17,6 @@
 `php artisan easymake:model MyModel --hasOne="Model1|Model2|...|ModelN"`
 
 ##### With other parameters
-`php artisan easymake:model MyModel --hasOne="Model1,foreignKey1,localKey1"`
-
 `php artisan easymake:model MyModel --hasOne="Model1,foreignKey1,localKey1|...|ModelN,foreignKeyN,localKeyN"`
 
 ##### With namespace
@@ -26,78 +24,7 @@
 
 ## All available commands
 
-### Model
-###### Parameters are optional and you most likely won't use them if you follow laravel standards
-##### Note: you can specify as many relation models as you want, separated with `|` character
-- `php artisan easymake:model MyModel --hasOne="OtherModel,foreignKey,localKey"`
-- `php artisan easymake:model MyModel --hasMany="OtherModel,foreignKey,localKey"`
-- `php artisan easymake:model MyModel --belongsTo="OtherModel,foreignKey,ownerKey,relation"`
-- `php artisan easymake:model MyModel --belongsToMany="OtherModel,table,foreignPivotKey,relatedPivotKey,parentKey,relatedKey,relation"`
+##### Read the docs on gitbook.io [here](https://rub1994-13.gitbook.io/easymake/) or check docs folder in this repository
 
-##### If you specify -m option to create migration of model with --belongsTo option, it'll also write relation columns. For example:
-`php artisan easymake:model Phone --belongsTo="User" -m`
-
-Output
-```php
-// migration file
-
-public function up()
-{
-    Schema::create('phones', function (Blueprint $table) {
-        $table->bigIncrements('id');
-        $table->integer('user_id'); <-- table will have this column to create relation
-
-        $table->timestamps();
-    });
-}
-
-// model file
-public function user()
-{
-    return $this->belongsTo(User::class);
-}
-```
-
-### Migration
-##### Note: you can specify as many columns as you want, separated with `|` character, parameters are separated with `:` character
-- `php artisan easymake:migration create_items_table --columns="string=name:100,default=null,nullable|text=description,nullable"`
-
-Output
-
-```php
-public function up()
-{
-    Schema::create('items', function (Blueprint $table) {
-        $table->bigIncrements('id');
-        $table->string('name', '100')->default(null)->nullable();
-        $table->text('description')->nullable();
-
-        $table->timestamps();
-    });
-}
-```
-
-- `php artisan easymake:migration add_sold_column_and_soft_deletes_to_items_table --columns="softDeletes|boolean=sold,default=false"`
-
-Output
-
-```php
-public function up()
-{
-    Schema::table('items', function (Blueprint $table) {
-        $table->softDeletes();
-        $table->boolean('sold')->default(false);
-
-        //
-    });
-}
-
-public function down()
-{
-    Schema::table('items', function (Blueprint $table) {
-        $table->dropSoftDeletes();
-        $table->dropColumn(['sold']);
-        //
-    });
-}
-```
+- [Model](https://github.com/danielyandev/laravel-easymake/blob/master/docs/usage/model.md)
+- [Migration](https://github.com/danielyandev/laravel-easymake/blob/master/docs/usage/migration.md)
