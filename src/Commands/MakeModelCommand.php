@@ -259,8 +259,14 @@ class MakeModelCommand extends ModelMakeCommand
             $method = str_replace('DummyParams', $params, $method);
             $relations .= $method;
 
-            $this->migrationColumns .= $this->migrationColumns ? '|': '';
-            $this->migrationColumns .= 'integer='. $methodName .'_id';
+            if ($this->option('belongsTo')){
+                $this->migrationColumns .= $this->migrationColumns ? '|': '';
+                $this->migrationColumns .= 'integer='. $methodName .'_id';
+            }
+            if ($this->option('softdeletes')){
+                $this->migrationColumns .= $this->migrationColumns ? '|': '';
+                $this->migrationColumns .= 'softDeletes';
+            }
         }
 
         return $relations;

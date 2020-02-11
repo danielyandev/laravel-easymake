@@ -2,6 +2,8 @@
 
 namespace EasyMake\Classes;
 
+use Illuminate\Support\Str;
+
 class MigrationCreator extends \Illuminate\Database\Migrations\MigrationCreator
 {
     /**
@@ -84,10 +86,14 @@ class MigrationCreator extends \Illuminate\Database\Migrations\MigrationCreator
         if ($columns){
             $down = '$table->dropColumn([';
             $downColumns = '';
+            $softDeletes = false;
             foreach ($columns as $column) {
                 $row = '$table';
                 $loop = 0;
                 foreach ($column as $method => $params) {
+                    if (Str::lower($method) == 'softdeletes'){
+                        $softDeletes = true;
+                    }
                     $params_row = '';
                     if ($params){
                         foreach ($params as $param) {
@@ -111,6 +117,17 @@ class MigrationCreator extends \Illuminate\Database\Migrations\MigrationCreator
             }
             $down .= $downColumns;
             $down .= ']);';
+
+            // if only softdeletes are dropped
+            // so we don't need this empty line
+            if ($down == '$table->dropColumn([\'\']);'){
+                $down = '';
+            }
+
+            if ($softDeletes){
+                $sd = '$this->dropSoftDeletes();'. PHP_EOL;
+                $down = $sd . $tabs . $down;
+            }
         }
 
         return [$up, $down];
