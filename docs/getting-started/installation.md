@@ -1,10 +1,12 @@
 ## Installation
 
 ##### That's very easy, just run command from your project root
-`composer require danielyandev/laravel-easymake`
+```
+composer require danielyandev/laravel-easymake
+```
 
 ##### or add dependency to your composer.json file
-```php
+```
 "require": {
     ...
     "danielyandev/laravel-easymake": "dev-master"
@@ -12,6 +14,8 @@
 ```
 
 ##### and run
-`composer install`
+```
+composer install
+```
 
 ### Congrats, you are ready to go further
