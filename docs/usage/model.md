@@ -22,7 +22,7 @@ php artisan easymake:model MyModel --hasMany="OtherModel,foreignKey,localKey"
 php artisan easymake:model MyModel --belongsTo="OtherModel,foreignKey,ownerKey,relation"
 ```
 
-##### Make model with belongsTo relations
+##### Make model with belongsToMany relations
 ```
 php artisan easymake:model MyModel --belongsToMany="OtherModel,table,foreignPivotKey,relatedPivotKey,parentKey,relatedKey,relation"
 ```
