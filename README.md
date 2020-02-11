@@ -7,6 +7,10 @@
 
 ## Some examples
 
+#### Make model with migration and controller
+###### This will create a model with defined relation, a migration with defined columns and a resource controller with defined methods. All you need is just to populate migration with extra columns and add view names to return
+`php artisan easymake:model Book --belongsTo="User" --softdeletes -mcr`
+
 #### Make model with soft deletes
 `php artisan easymake:model MyModel --softdeletes`
 

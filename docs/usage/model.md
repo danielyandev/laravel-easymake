@@ -2,6 +2,11 @@
 ###### Parameters are optional and you most likely won't use them if you follow laravel standards
 ##### Note: you can specify as many relation models with their parameters as you want, separated with `|` character
 
+
+#### Make model with migration and controller
+###### This will create a model with defined relation, a migration with defined columns and a resource controller with defined methods. All you need is just to populate migration with extra columns and add view names to return
+`php artisan easymake:model Book --belongsTo="User" --softdeletes -mcr`
+
 ##### Make model with soft deletes
 ```
 php artisan easymake:model MyModel --softdeletes
