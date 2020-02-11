@@ -1,6 +1,10 @@
 ### Migration
 ##### Note: you can specify as many columns as you want, separated with `|` character, parameters are separated with `:` character
-- `php artisan easymake:migration create_items_table --columns="string=name:100,default=null,nullable|text=description,nullable"`
+
+#### Make new table migration
+```
+php artisan easymake:migration create_items_table --columns="string=name:100,default=null,nullable|text=description,nullable"
+```
 
 Output
 
@@ -17,7 +21,10 @@ public function up()
 }
 ```
 
-- `php artisan easymake:migration add_sold_column_and_soft_deletes_to_items_table --columns="softDeletes|boolean=sold,default=false"`
+#### Make new table migration
+```
+php artisan easymake:migration add_sold_column_and_soft_deletes_to_items_table --columns="softDeletes|boolean=sold,default=false"
+```
 
 Output
 
