@@ -260,8 +260,10 @@ class MakeModelCommand extends ModelMakeCommand
             $relations .= $method;
 
             if ($this->option('belongsTo')){
-                $this->migrationColumns .= $this->migrationColumns ? '|': '';
-                $this->migrationColumns .= 'integer='. $methodName .'_id';
+                if (Str::lower($this->option('belongsTo')) == $methodName){
+                    $this->migrationColumns .= $this->migrationColumns ? '|': '';
+                    $this->migrationColumns .= 'integer='. $methodName .'_id';
+                }
             }
             if ($this->option('softdeletes')){
                 $this->migrationColumns .= $this->migrationColumns ? '|': '';
@@ -272,6 +274,11 @@ class MakeModelCommand extends ModelMakeCommand
         return $relations;
     }
 
+    /**
+     * @param $relation
+     * @param $plural
+     * @return array
+     */
     protected function parseRelation($relation, $plural)
     {
         $relation = explode(',', $relation);
@@ -320,7 +327,9 @@ class MakeModelCommand extends ModelMakeCommand
         ];
 
         if ($this->migrationColumns){
-            $params['--columns'] = $this->migrationColumns;
+            $columns = explode('|', $this->migrationColumns);
+            $columns = implode('|', array_unique($columns));
+            $params['--columns'] = $columns;
         }
 
         $this->call('easymake:migration', $params);
