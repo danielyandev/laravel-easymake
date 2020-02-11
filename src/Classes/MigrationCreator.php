@@ -118,14 +118,17 @@ class MigrationCreator extends \Illuminate\Database\Migrations\MigrationCreator
             $down .= $downColumns;
             $down .= ']);';
 
+            // replace empty strings
+            $down = str_replace(["'', ", "''"], '', $down);
+            $down = str_replace([", ]", ",]"], ']', $down);
             // if only softdeletes are dropped
             // so we don't need this empty line
-            if ($down == '$table->dropColumn([\'\']);'){
+            if ($down == '$table->dropColumn([]);'){
                 $down = '';
             }
 
             if ($softDeletes){
-                $sd = '$this->dropSoftDeletes();'. PHP_EOL;
+                $sd = '$table->dropSoftDeletes();'. PHP_EOL;
                 $down = $sd . $tabs . $down;
             }
         }
