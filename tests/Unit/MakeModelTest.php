@@ -2,18 +2,18 @@
 
 namespace EasyMake\Tests\Unit;
 
+use EasyMake\Commands\MakeModelCommand;
 use PHPUnit\Framework\TestCase;
 
 class MakeModelTest extends TestCase
 {
     /**
-     * A basic unit test example.
+     * Check if command exists
      *
      * @return void
      */
     public function testCommandExists()
     {
-        $exists = class_exists(\EasyMake\Commands\MakeModelCommand::class, false);
-        $this->assertTrue($exists);
+        $this->assertTrue(class_exists(MakeModelCommand::class));
     }
 }
