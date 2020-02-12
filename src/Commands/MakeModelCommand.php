@@ -330,7 +330,7 @@ class MakeModelCommand extends ModelMakeCommand
         foreach ($relation as $key => $value) {
             if (!$key) continue;
 
-            $params .= ", '". $value . "'";
+            $params .= ", '". trim($value) . "'";
         }
 
         return [$methodName,  $params];
