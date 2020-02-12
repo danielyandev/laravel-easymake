@@ -11,9 +11,17 @@
     "require": {
         "php": "^7.1"
     },
+    "require-dev": {
+        "phpunit/phpunit": "^8.5"
+    },
     "autoload": {
         "psr-4": {
             "EasyMake\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "EasyMake\\Tests\\": "tests/"
         }
     },
     "extra": {
