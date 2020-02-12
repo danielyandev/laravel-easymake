@@ -277,6 +277,9 @@ class MakeModelCommand extends ModelMakeCommand
         $optionRelations = explode('|', $option);
 
         foreach ($optionRelations as $relation){
+            if (!$relation) continue;
+            $relation = trim($relation);
+
             [$methodName, $params] = $this->parseRelation($relation, $plural);
 
             $method = $subStub;

@@ -201,17 +201,21 @@ class MakeMigrationCommand extends MigrateMakeCommand
         $exploded = explode('|', $columns);
         $columns = [];
         foreach ($exploded as $column_str) {
+            if (!$column_str) continue;
+
+            $column_str = trim($column_str);
+
             $params = explode(',', $column_str);
             $column = [];
             foreach ($params as $key => $param){
-                $param = explode('=', $param);
+                $param = explode('=', trim($param));
 
                 if (!$key && !in_array($param[0], $this->columnTypes())){
                     $this->error('Specify column type by first parameter. E.g integer=some_name');
                     exit();
                 }
 
-                $column[$param[0]] = isset($param[1]) ? explode(':', $param[1]) : null;
+                $column[trim($param[0])] = isset($param[1]) ? explode(':', trim($param[1])) : null;
             }
             $columns[] = $column;
         }
