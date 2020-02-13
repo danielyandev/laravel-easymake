@@ -1,4 +1,4 @@
-### Migration
+### Controller
 ##### Note: you just use this command as usual make:controller command, but if you create api or resource controller with --model option, it will be with predefined methods, all you'll need is just to add view names to return
 
 #### Make new resource controller
