@@ -25,6 +25,7 @@
             "EasyMake\\Tests\\": "tests/"
         }
     },
+    "minimum-stability": "dev",
     "extra": {
         "laravel": {
             "providers": [
