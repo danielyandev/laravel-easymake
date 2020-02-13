@@ -9,7 +9,7 @@ composer require danielyandev/laravel-easymake
 ```
 "require": {
     ...
-    "danielyandev/laravel-easymake": "dev-master"
+    "danielyandev/laravel-easymake": "1.0.0"
 },
 ```
 
