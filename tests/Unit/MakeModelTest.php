@@ -124,10 +124,11 @@ class MakeModelTest extends TestCase
         ])
         ->expectsOutput('Model created successfully.');
 
-        $model = self::TEST_MODEL_NAMESPACE . 'TestHasAllRelations';
-        $this->assertTrue(method_exists(new $model, 'testhasone'));
-        $this->assertTrue(method_exists(new $model, 'testhasmanies'));
-        $this->assertTrue(method_exists(new $model, 'testbelongsto'));
-        $this->assertTrue(method_exists(new $model, 'testbelongstomanies'));
+        $modelNamespace = self::TEST_MODEL_NAMESPACE . 'TestHasAllRelations';
+        $model = new $modelNamespace;
+        $this->assertTrue(method_exists($model, 'testhasone'));
+        $this->assertTrue(method_exists($model, 'testhasmanies'));
+        $this->assertTrue(method_exists($model, 'testbelongsto'));
+        $this->assertTrue(method_exists($model, 'testbelongstomanies'));
     }
 }
