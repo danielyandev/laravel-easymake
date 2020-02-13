@@ -45,15 +45,16 @@ class MakeControllerTest extends TestCase
         ])
         ->expectsOutput('Controller created successfully.');
 
-        $controller = self::TEST_CONTROLLER_NAMESPACE . 'TestResourceModelController';
+        $controllerNamespace = self::TEST_CONTROLLER_NAMESPACE . 'TestResourceModelController';
+        $controller = new $controllerNamespace;
 
-        $this->assertTrue(method_exists(new $controller, 'index'));
-        $this->assertTrue(method_exists(new $controller, 'create'));
-        $this->assertTrue(method_exists(new $controller, 'store'));
-        $this->assertTrue(method_exists(new $controller, 'show'));
-        $this->assertTrue(method_exists(new $controller, 'edit'));
-        $this->assertTrue(method_exists(new $controller, 'update'));
-        $this->assertTrue(method_exists(new $controller, 'destroy'));
+        $this->assertTrue(method_exists($controller, 'index'));
+        $this->assertTrue(method_exists($controller, 'create'));
+        $this->assertTrue(method_exists($controller, 'store'));
+        $this->assertTrue(method_exists($controller, 'show'));
+        $this->assertTrue(method_exists($controller, 'edit'));
+        $this->assertTrue(method_exists($controller, 'update'));
+        $this->assertTrue(method_exists($controller, 'destroy'));
     }
 
     /**
