@@ -56,6 +56,13 @@ class MakeModelCommand extends ModelMakeCommand
         if ($migration) {
             $this->input->setOption('migration', false);
         }
+
+        $seed = $this->option('seed');
+        // disable seeder creating for parent handle method
+        if ($seed){
+            $this->input->setOption('seed', false);
+        }
+
         $controller = $this->option('controller');
         $controllerResource = $this->option('resource');
         $controllerApi = $this->option('api');
@@ -88,8 +95,8 @@ class MakeModelCommand extends ModelMakeCommand
             $this->createOwnMigration();
         }
 
-        if ($this->option('seed')) {
-            $this->createSeeder();
+        if ($seed) {
+            $this->createOwnSeeder();
         }
 
         if ($controller || $controllerResource || $controllerApi) {
@@ -264,6 +271,16 @@ class MakeModelCommand extends ModelMakeCommand
     }
 
     /**
+     * Get table name according model name
+     *
+     * @return string
+     */
+    protected function getTableName()
+    {
+        return Str::snake(Str::pluralStudly(class_basename($this->argument('name'))));
+    }
+
+    /**
      * Get relation methods
      *
      * @param $option
@@ -343,7 +360,7 @@ class MakeModelCommand extends ModelMakeCommand
      */
     protected function createOwnMigration()
     {
-        $table = Str::snake(Str::pluralStudly(class_basename($this->argument('name'))));
+        $table = $this->getTableName();
 
         if ($this->option('pivot')) {
             $table = Str::singular($table);
@@ -379,5 +396,18 @@ class MakeModelCommand extends ModelMakeCommand
             '--model' => $this->controllerResource || $this->controllerApi ? $modelName : null,
             '--api' => $this->controllerApi,
         ]));
+    }
+
+    /**
+     * Create seeder for model table
+     *
+     * @return void
+     */
+    protected function createOwnSeeder()
+    {
+        $this->call('easymake:seeder', [
+            'name' => $this->argument('name') .'Seeder',
+            '--table' => $this->getTableName()
+        ]);
     }
 }
