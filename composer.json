@@ -34,5 +34,8 @@
                 "EasyMake\\EasyMakeServiceProvider"
             ]
         }
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit tests"
     }
 }
