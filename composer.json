@@ -2,7 +2,7 @@
     "name": "danielyandev/laravel-easymake",
     "description": "Easy make commands for Laravel",
     "license": "MIT",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "authors": [
         {
             "name": "Ruben Danielyan",
