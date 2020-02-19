@@ -265,6 +265,7 @@ class MakeModelCommand extends ModelMakeCommand
             ['hasOne', null, InputOption::VALUE_REQUIRED, 'Define hasOne relations'],
             ['belongsTo', null, InputOption::VALUE_REQUIRED, 'Define belongsTo relations'],
             ['belongsToMany', null, InputOption::VALUE_REQUIRED, 'Define belongsToMany relations'],
+            ['seed', 's', InputOption::VALUE_NONE, 'Create a new seeder file for the model'],
         ];
 
         return array_merge($options, parent::getOptions());
