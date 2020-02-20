@@ -266,6 +266,7 @@ class MakeModelCommand extends ModelMakeCommand
             ['belongsTo', null, InputOption::VALUE_REQUIRED, 'Define belongsTo relations'],
             ['belongsToMany', null, InputOption::VALUE_REQUIRED, 'Define belongsToMany relations'],
             ['seed', 's', InputOption::VALUE_NONE, 'Create a new seeder file for the model'],
+            ['api', null, InputOption::VALUE_NONE, 'Indicates if the generated controller should be an API controller'],
         ];
 
         return array_merge($options, parent::getOptions());
@@ -278,7 +279,7 @@ class MakeModelCommand extends ModelMakeCommand
      */
     protected function getTableName()
     {
-        return Str::snake(Str::pluralStudly(class_basename($this->argument('name'))));
+        return Str::snake(Str::plural(class_basename($this->argument('name'))));
     }
 
     /**
